@@ -27,17 +27,27 @@ class SendNewPostsToSubscribers extends Command
      */
     public function handle()
     {
-        $posts = Post::whereDoesntHave('subscribers')->with('website')->get();
-
+        // Get posts that have subscribers who have NOT yet received the post email
+        // We eager load website and subscribers to avoid N+1 problem
+        $posts = Post::with('website.subscribers')->get();
 
         foreach ($posts as $post) {
             $subscribers = $post->website->subscribers;
+
             foreach ($subscribers as $subscriber) {
-                dispatch(new SendPostEmailJob($subscriber, $post));
-                $post->subscribers()->attach($subscriber->id);
+                // Check if this subscriber already received this post
+                if (!$post->subscribers()->where('subscriber_id', $subscriber->id)->exists()) {
+                    // Dispatch job to send email
+                    dispatch(new SendPostEmailJob($subscriber, $post));
+
+                    // Mark subscriber as having received this post to avoid duplicates
+                    $post->subscribers()->attach($subscriber->id);
+                }
             }
         }
 
+        $this->info('Dispatched email jobs for new posts to subscribers.');
     }
+
 }
 
