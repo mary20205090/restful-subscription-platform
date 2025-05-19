@@ -1,3 +1,5 @@
+**TASK**
+
 Create a simple subscription platform(only RESTful APIs with MySQL) in which users can subscribe to a website (there can be multiple websites in the system). Whenever a new post is published on a particular website, all it's subscribers shall receive an email with the post title and description in it. (no authentication of any kind is required)
 
 MUST:-
@@ -17,6 +19,7 @@ OPTIONAL:-
 - Use of caching wherever applicable.
 - Use of events/listeners.
 
+**SUBMISSION**
 
 ** POSTMAN URL COLLECTION **
 https://red-crater-868887.postman.co/workspace/My-Workspace~59c872c6-3a90-4b42-81b4-b149874d8962/collection/16273481-2e3efa9c-6b7b-47f5-bdca-8d3fb296186a?action=share&creator=16273481
