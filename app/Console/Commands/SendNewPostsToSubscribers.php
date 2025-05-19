@@ -28,7 +28,7 @@ class SendNewPostsToSubscribers extends Command
     public function handle()
     {
         $posts = Post::whereDoesntHave('subscribers')->with('website')->get();
-        
+
 
         foreach ($posts as $post) {
             $subscribers = $post->website->subscribers;
@@ -40,3 +40,4 @@ class SendNewPostsToSubscribers extends Command
 
     }
 }
+
