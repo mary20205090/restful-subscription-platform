@@ -22,5 +22,13 @@ OPTIONAL:-
 https://red-crater-868887.postman.co/workspace/My-Workspace~59c872c6-3a90-4b42-81b4-b149874d8962/collection/16273481-2e3efa9c-6b7b-47f5-bdca-8d3fb296186a?action=share&creator=16273481
 
 **COMMAND TO SEND EMAIL NOTIFICATION **
--To send email notifications to subscribers about new posts, run the following Artisan command:
-RUN:  php artisan posts:send-new
+- To send email notifications to subscribers about new posts, run the following Artisan command:
+RUN:  **php artisan posts:send-new**
+This command:
+- Checks all websites for new posts that haven't been sent to subscribers yet.
+- Dispatches queued jobs to send emails with the post title and description.
+- Prevents duplicate emails from being sent.
+
+NB!
+- Make sure to run the queue worker in the background to process the email jobs:
+ **php artisan queue:work**
